@@ -3,100 +3,81 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Aadi Samineni's software portfolio and resume.">
-    <title>Aadi Samineni</title>
+    <meta name="description" content="Aadi Samineni's quantitative trading portfolio and resume.">
+    <title>Aadi Samineni | Quantitative Trading</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="Aadi Samineni home">AS</a>
+      <a class="brand" href="index.html" aria-label="Aadi Samineni home">Aadi Samineni</a>
       <nav aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
-        <a href="#contact">Contact</a>
+        <a href="about.html">About</a>
+        <a href="experience.html">Experience</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contacts</a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-label="Introduction">
-        <img src="assets/hero-workspace.png" alt="Modern laptop workspace" class="hero-image">
-        <div class="hero-overlay"></div>
+    <main>
+      <section class="hero quant-hero" aria-label="Introduction">
+        <div class="market-panel" aria-hidden="true">
+          <div class="ticker-row">
+            <span>ES +0.42</span>
+            <span>NQ +0.71</span>
+            <span>CL -0.18</span>
+            <span>DX +0.09</span>
+          </div>
+          <div class="chart-grid">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+            <span class="bar bar-4"></span>
+            <span class="bar bar-5"></span>
+            <span class="bar bar-6"></span>
+            <span class="bar bar-7"></span>
+            <span class="bar bar-8"></span>
+          </div>
+          <div class="signal-line"></div>
+        </div>
+
         <div class="hero-content">
-          <p class="eyebrow">Software portfolio</p>
+          <p class="eyebrow">Quantitative trading portfolio</p>
           <h1>Aadi Samineni</h1>
           <p class="lede">
-            I build practical software with a focus on clear interfaces, reliable
-            systems, and professional execution.
+            Building a focused foundation in markets, data, software, and systematic
+            decision-making.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#work">View work</a>
-            <a class="button secondary" href="resume.pdf" target="_blank" rel="noopener">Open resume</a>
+            <a class="button primary" href="projects.html">View projects</a>
+            <a class="button secondary" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
           </div>
         </div>
       </section>
 
-      <section class="section intro-band" id="about">
-        <div>
-          <p class="section-kicker">About</p>
-          <h2>Focused on practical engineering and polished product work.</h2>
-        </div>
-        <p>
-          I am building a portfolio around software projects, technical growth, and
-          work that is easy to understand, maintain, and use. My resume is available
-          for a detailed view of my experience and background.
-        </p>
-      </section>
-
-      <section class="section" id="work">
+      <section class="section snapshot-section" aria-label="Portfolio snapshot">
         <div class="section-heading">
-          <p class="section-kicker">Selected work</p>
-          <h2>Projects</h2>
+          <p class="section-kicker">Focus</p>
+          <h2>Clean research, disciplined execution, and technical range.</h2>
         </div>
-        <div class="project-grid">
-          <article class="project-card">
-            <p class="project-label">Project 01</p>
-            <h3>Portfolio Website</h3>
-            <p>
-              A professional GitHub Pages portfolio for sharing projects, resume
-              details, and contact information.
-            </p>
-            <a href="https://github.com/aadisamineni/aadisamineni.github.io">View repo</a>
+        <div class="metric-grid">
+          <article class="metric-card">
+            <span>01</span>
+            <h3>Research</h3>
+            <p>Market structure, strategy testing, and data-driven analysis.</p>
           </article>
-          <article class="project-card">
-            <p class="project-label">Project 02</p>
-            <h3>Resume</h3>
-            <p>
-              A current PDF resume with a detailed overview of my education,
-              experience, skills, and technical background.
-            </p>
-            <a href="resume.pdf" target="_blank" rel="noopener">Open resume</a>
+          <article class="metric-card">
+            <span>02</span>
+            <h3>Engineering</h3>
+            <p>Python, software systems, automation, and reproducible workflows.</p>
           </article>
-          <article class="project-card">
-            <p class="project-label">Project 03</p>
-            <h3>Project Archive</h3>
-            <p>
-              A place for selected class projects, independent builds, and future
-              technical write-ups as the portfolio grows.
-            </p>
-            <a href="#contact">Discuss work</a>
+          <article class="metric-card">
+            <span>03</span>
+            <h3>Execution</h3>
+            <p>Risk-aware thinking, concise communication, and measurable outputs.</p>
           </article>
-        </div>
-      </section>
-
-      <section class="section contact-band" id="contact">
-        <div>
-          <p class="section-kicker">Contact</p>
-          <h2>Let us connect.</h2>
-        </div>
-        <div class="contact-links">
-          <a href="https://github.com/aadisamineni">GitHub</a>
-          <a href="https://www.linkedin.com/in/aadisamineni">LinkedIn</a>
-          <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
-          <span>Email available on resume</span>
         </div>
       </section>
     </main>
