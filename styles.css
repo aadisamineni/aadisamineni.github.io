@@ -308,6 +308,113 @@ h3 {
   max-width: 1020px;
 }
 
+.about-page {
+  max-width: 1220px;
+}
+
+.about-intro {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: clamp(36px, 7vw, 92px);
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.72fr);
+  padding-bottom: 64px;
+}
+
+.about-copy {
+  max-width: 680px;
+}
+
+.about-copy h1 {
+  font-size: clamp(2.35rem, 4.4vw, 4.15rem);
+  line-height: 1;
+  max-width: 680px;
+}
+
+.about-copy p:not(.eyebrow) {
+  color: var(--soft);
+  font-size: 1.05rem;
+  max-width: 680px;
+}
+
+.about-copy p:not(.eyebrow) + p {
+  margin-top: 20px;
+}
+
+.about-photo-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.about-photo {
+  border: 1px solid var(--line-bright);
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.about-photo-basketball {
+  aspect-ratio: 1;
+  object-position: center 42%;
+}
+
+.about-photo-brooklyn {
+  aspect-ratio: 1;
+  margin-top: 40px;
+  object-position: center 52%;
+}
+
+.about-photo-michigan {
+  aspect-ratio: 1.18 / 1;
+  object-position: center 34%;
+}
+
+.about-photo-arcade {
+  aspect-ratio: 1.18 / 1;
+  margin-top: 40px;
+  object-position: center 38%;
+}
+
+.about-education {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: clamp(28px, 6vw, 84px);
+  grid-template-columns: minmax(220px, 0.32fr) minmax(0, 1fr);
+  padding: 46px 0 58px;
+}
+
+.education-heading h2 {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  max-width: 300px;
+}
+
+.education-body h3 {
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  margin-bottom: 8px;
+}
+
+.education-body p {
+  color: var(--muted);
+  max-width: 760px;
+}
+
+.course-grid {
+  display: grid;
+  gap: 0 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 24px 0 28px;
+}
+
+.course-grid span {
+  border-top: 1px solid var(--line);
+  color: var(--soft);
+  display: block;
+  font-size: 0.9rem;
+  padding: 12px 0;
+}
+
 .wide {
   grid-column: span 2;
 }
@@ -399,6 +506,8 @@ li + li {
   }
 
   .quant-hero,
+  .about-intro,
+  .about-education,
   .metric-grid,
   .content-grid,
   .project-grid,
@@ -428,6 +537,23 @@ li + li {
   .page-shell {
     padding-top: 170px;
   }
+
+  .about-copy {
+    max-width: none;
+  }
+
+  .about-photo-grid {
+    max-width: 620px;
+  }
+
+  .about-photo-brooklyn,
+  .about-photo-arcade {
+    margin-top: 0;
+  }
+
+  .course-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 520px) {
@@ -455,5 +581,17 @@ li + li {
   .button {
     justify-content: center;
     width: 100%;
+  }
+
+  .about-photo-grid,
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-photo-basketball,
+  .about-photo-brooklyn,
+  .about-photo-michigan,
+  .about-photo-arcade {
+    aspect-ratio: 1;
   }
 }
