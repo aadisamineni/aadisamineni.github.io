@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Market making game by Aadi Samineni.">
+    <title>Market Making Game | Aadi Samineni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css?v=20260610-game">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Aadi Samineni home">Aadi Samineni</a>
+      <nav aria-label="Primary navigation">
+        <a href="/about.html">About</a>
+        <a href="/experience.html">Experience</a>
+        <a href="/projects.html">Projects</a>
+        <a class="active" href="/game">Game</a>
+        <a href="/contact.html">Contacts</a>
+      </nav>
+    </header>
+
+    <main class="page-shell game-page">
+      <section class="page-hero">
+        <p class="eyebrow">Market Making Game</p>
+        <h1>Market Making Under Uncertainty</h1>
+        <p class="lede">
+          Quote a bid-ask market, reveal the fair value, and see how well you manage risk.
+        </p>
+      </section>
+
+      <section class="game-layout" aria-label="Market making game">
+        <article class="game-card">
+          <div class="game-card-header">
+            <p class="game-tag" id="market-category">Probability</p>
+            <p class="game-round" id="market-count">Market 1 of 5</p>
+          </div>
+          <h2 id="market-question"></h2>
+
+          <form class="quote-form" id="quote-form">
+            <label>
+              <span>Bid</span>
+              <input id="bid-input" type="number" step="0.01" inputmode="decimal" placeholder="74">
+            </label>
+            <label>
+              <span>Ask</span>
+              <input id="ask-input" type="number" step="0.01" inputmode="decimal" placeholder="78">
+            </label>
+            <button class="button primary" type="submit">Submit Quote</button>
+          </form>
+
+          <p class="form-error" id="form-error" role="alert"></p>
+
+          <div class="result-panel" id="result-panel" hidden>
+            <div class="result-grid">
+              <div>
+                <span>Fair value</span>
+                <strong id="result-fair-value"></strong>
+              </div>
+              <div>
+                <span>Spread result</span>
+                <strong id="result-spread"></strong>
+              </div>
+              <div>
+                <span>Round PnL</span>
+                <strong id="result-pnl"></strong>
+              </div>
+            </div>
+            <p id="result-explanation"></p>
+            <button class="button secondary" id="next-market" type="button">Next Market</button>
+          </div>
+        </article>
+
+        <aside class="stats-card" aria-label="Running stats">
+          <p class="section-kicker">Stats</p>
+          <div class="stats-grid">
+            <div>
+              <span>Total PnL</span>
+              <strong id="stat-total-pnl">0.00</strong>
+            </div>
+            <div>
+              <span>Markets quoted</span>
+              <strong id="stat-markets">0</strong>
+            </div>
+            <div>
+              <span>Hit rate</span>
+              <strong id="stat-hit-rate">0%</strong>
+            </div>
+            <div>
+              <span>Average spread</span>
+              <strong id="stat-avg-spread">0.00</strong>
+            </div>
+            <div>
+              <span>Best round</span>
+              <strong id="stat-best">--</strong>
+            </div>
+            <div>
+              <span>Worst round</span>
+              <strong id="stat-worst">--</strong>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      const prompts = [
+        {
+          question: "A mystery asset has a 60% chance of being worth $100 and a 40% chance of being worth $40. Make a market.",
+          fairValue: 76,
+          category: "Probability",
+          explanation: "Expected value = 0.6 x 100 + 0.4 x 40 = 76."
+        },
+        {
+          question: "A contract pays $100 if an event happens. The event has a 35% probability. Make a market.",
+          fairValue: 35,
+          category: "Prediction Markets",
+          explanation: "A binary contract with 35% probability has fair value around $35."
+        },
+        {
+          question: "A stock will be worth either $120 or $80 tomorrow with equal probability. Make a market.",
+          fairValue: 100,
+          category: "Expected Value",
+          explanation: "Expected value = 0.5 x 120 + 0.5 x 80 = 100."
+        },
+        {
+          question: "A basket contains 4 units of Asset A worth $12 each and 3 units of Asset B worth $8 each. Make a market on the basket.",
+          fairValue: 72,
+          category: "Basket Pricing",
+          explanation: "Basket value = 4 x 12 + 3 x 8 = 72."
+        },
+        {
+          question: "A game pays $200 with 25% probability and $0 otherwise. Make a market.",
+          fairValue: 50,
+          category: "Expected Value",
+          explanation: "Expected value = 0.25 x 200 = 50."
+        }
+      ];
+
+      const state = {
+        index: 0,
+        totalPnl: 0,
+        markets: 0,
+        hits: 0,
+        totalSpread: 0,
+        best: null,
+        worst: null
+      };
+
+      const els = {
+        category: document.getElementById("market-category"),
+        count: document.getElementById("market-count"),
+        question: document.getElementById("market-question"),
+        form: document.getElementById("quote-form"),
+        bid: document.getElementById("bid-input"),
+        ask: document.getElementById("ask-input"),
+        error: document.getElementById("form-error"),
+        panel: document.getElementById("result-panel"),
+        fairValue: document.getElementById("result-fair-value"),
+        spread: document.getElementById("result-spread"),
+        pnl: document.getElementById("result-pnl"),
+        explanation: document.getElementById("result-explanation"),
+        next: document.getElementById("next-market"),
+        totalPnl: document.getElementById("stat-total-pnl"),
+        markets: document.getElementById("stat-markets"),
+        hitRate: document.getElementById("stat-hit-rate"),
+        avgSpread: document.getElementById("stat-avg-spread"),
+        best: document.getElementById("stat-best"),
+        worst: document.getElementById("stat-worst")
+      };
+
+      function round2(value) {
+        return Math.round(value * 100) / 100;
+      }
+
+      function formatNumber(value) {
+        return value.toFixed(2);
+      }
+
+      function currentPrompt() {
+        return prompts[state.index % prompts.length];
+      }
+
+      function renderMarket() {
+        const prompt = currentPrompt();
+        els.category.textContent = prompt.category;
+        els.count.textContent = `Market ${(state.index % prompts.length) + 1} of ${prompts.length}`;
+        els.question.textContent = prompt.question;
+        els.bid.value = "";
+        els.ask.value = "";
+        els.error.textContent = "";
+        els.panel.hidden = true;
+        els.form.querySelector("button").disabled = false;
+        els.bid.disabled = false;
+        els.ask.disabled = false;
+        els.bid.focus();
+      }
+
+      function renderStats() {
+        const hitRate = state.markets ? (state.hits / state.markets) * 100 : 0;
+        const avgSpread = state.markets ? state.totalSpread / state.markets : 0;
+        els.totalPnl.textContent = formatNumber(round2(state.totalPnl));
+        els.markets.textContent = String(state.markets);
+        els.hitRate.textContent = `${Math.round(hitRate)}%`;
+        els.avgSpread.textContent = formatNumber(round2(avgSpread));
+        els.best.textContent = state.best === null ? "--" : formatNumber(state.best);
+        els.worst.textContent = state.worst === null ? "--" : formatNumber(state.worst);
+      }
+
+      els.form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const bidValue = els.bid.value.trim();
+        const askValue = els.ask.value.trim();
+        const bid = Number(bidValue);
+        const ask = Number(askValue);
+
+        if (!bidValue || !askValue || !Number.isFinite(bid) || !Number.isFinite(ask)) {
+          els.error.textContent = "Bid and ask must both be numbers.";
+          return;
+        }
+
+        if (bid >= ask) {
+          els.error.textContent = "Bid must be less than ask.";
+          return;
+        }
+
+        const prompt = currentPrompt();
+        const spreadWidth = ask - bid;
+        const mid = (bid + ask) / 2;
+        const inside = prompt.fairValue >= bid && prompt.fairValue <= ask;
+        const pnl = round2(inside ? 100 - spreadWidth : -Math.abs(prompt.fairValue - mid));
+
+        state.totalPnl = round2(state.totalPnl + pnl);
+        state.markets += 1;
+        state.hits += inside ? 1 : 0;
+        state.totalSpread += spreadWidth;
+        state.best = state.best === null ? pnl : Math.max(state.best, pnl);
+        state.worst = state.worst === null ? pnl : Math.min(state.worst, pnl);
+
+        els.error.textContent = "";
+        els.fairValue.textContent = formatNumber(prompt.fairValue);
+        els.spread.textContent = inside ? "Inside the spread" : "Outside the spread";
+        els.pnl.textContent = formatNumber(pnl);
+        els.explanation.textContent = prompt.explanation;
+        els.panel.hidden = false;
+        els.form.querySelector("button").disabled = true;
+        els.bid.disabled = true;
+        els.ask.disabled = true;
+        renderStats();
+      });
+
+      els.next.addEventListener("click", () => {
+        state.index += 1;
+        renderMarket();
+      });
+
+      renderMarket();
+      renderStats();
+    </script>
+  </body>
+</html>
