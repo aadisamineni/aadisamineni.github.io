@@ -181,6 +181,39 @@ h3 {
   outline: none;
 }
 
+.home-photo-grid {
+  align-items: end;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  justify-self: center;
+  max-width: 75%;
+}
+
+.home-photo {
+  border: 1px solid var(--line-bright);
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.home-photo-primary {
+  aspect-ratio: 0.92 / 1;
+  object-position: center 45%;
+}
+
+.home-photo-secondary {
+  aspect-ratio: 0.92 / 1;
+  margin-bottom: 42px;
+  object-position: center 46%;
+}
+
+.home-photo-wide {
+  aspect-ratio: 2 / 1;
+  grid-column: 1 / -1;
+  object-position: center 42%;
+}
+
 .market-panel {
   background: linear-gradient(180deg, var(--panel-strong), var(--panel));
   border: 1px solid var(--line);
@@ -526,6 +559,14 @@ li + li {
     min-height: 320px;
   }
 
+  .home-photo-grid {
+    max-width: min(465px, 100%);
+  }
+
+  .home-photo-secondary {
+    margin-bottom: 0;
+  }
+
   .chart-grid {
     height: 210px;
   }
@@ -576,6 +617,16 @@ li + li {
 
   .ticker-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-photo-primary,
+  .home-photo-secondary,
+  .home-photo-wide {
+    aspect-ratio: 1.2 / 1;
   }
 
   .button {
