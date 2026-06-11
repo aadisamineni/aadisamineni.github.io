@@ -284,6 +284,15 @@ h3 {
   color: var(--muted);
 }
 
+.project-card .project-date {
+  color: var(--soft);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
 .page-shell {
   padding-top: 148px;
 }
