@@ -1,31 +1,31 @@
-# aadisamineni.github.io
+# Personal Portfolio Website
 
-Personal website for GitHub Pages.
+This repository contains the source code for my personal portfolio website.
 
-## Edit locally
+Live site: https://aadisamineni.github.io
 
-Open this folder:
+## About
+
+My portfolio highlights my background in industrial engineering, financial engineering, quantitative research, and software development. It includes selected projects, research experience, internship work, and ways to contact me.
+
+## Featured Areas
+
+- Quantitative research and trading projects
+- Financial engineering and options-related work
+- Data analysis and modeling
+- Software and web development projects
+
+## Tech Stack
+
+- HTML
+- CSS
+- JavaScript
+- GitHub Pages
+
+## Local Development
+
+To edit the site locally:
 
 ```bash
-cd ~/aadisamineni.github.io
-```
-
-The main files are:
-
-- `index.html` for page content
-- `styles.css` for design
-- `assets/hero-workspace.png` for the hero image
-
-## Publish changes
-
-```bash
-git add .
-git commit -m "Update website"
-git push
-```
-
-GitHub Pages will publish the site at:
-
-```text
-https://aadisamineni.github.io
-```
+cd aadisamineni.github.io
+open index.html
